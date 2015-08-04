@@ -4,8 +4,7 @@ import re,os,shutil
 currVFile='currVFile'
 allVFile='allVFile'
 
-conf=re.compile(r'\d{1,2}\.\d{1,2}\.\d{1,2}-\d{1,2}(?=-generic)')
-conf1=re.compile(r'\d{1,2}\.\d{1,2}\.\d{1,2}-\d{1,2}')
+conf=re.compile(r'\d{1,2}\.\d{1,2}\.\d{1,2}-\d{1,2}-generic')
 os.system('uname -a > %s' % (currVFile))
 os.system('dpkg --get-selections|grep linux > %s ' % (allVFile))
 
@@ -14,7 +13,7 @@ res=conf.search(currVStr)
 currV=res.group()
 preV=None
 for line in open(allVFile,'r'):
-	res=conf1.search(line)
+	res=conf.search(line)
 	if res:
 		preV=res.group()
 		if not preV==currV:
