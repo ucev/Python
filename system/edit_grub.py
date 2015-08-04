@@ -4,21 +4,26 @@ import re,os,shutil
 currVFile='currVFile'
 allVFile='allVFile'
 
-conf=re.compile(r'\d\.\d\d\.\d-\d\d-generic')
+conf=re.compile(r'\d{1,2}\.\d{1,2}\.\d{1,2}-\d{1,2}(?=-generic)')
+conf1=re.compile(r'\d{1,2}\.\d{1,2}\.\d{1,2}-\d{1,2}')
 os.system('uname -a > %s' % (currVFile))
 os.system('dpkg --get-selections|grep linux > %s ' % (allVFile))
 
 currVStr=open(currVFile,'r').read()
 res=conf.search(currVStr)
 currV=res.group()
+preV=None
 for line in open(allVFile,'r'):
-	res=conf.search(line)
+	res=conf1.search(line)
 	if res:
 		preV=res.group()
 		if not preV==currV:
 			break
+		else:
+			preV=None
 
-os.system('apt-get purge linux-headers-%s linux-image-%s' % (preV,preV))
+if preV:
+	os.system('apt-get purge linux-headers-%s linux-image-%s' % (preV,preV))
 os.remove(currVFile)
 os.remove(allVFile)
 
@@ -67,7 +72,7 @@ for line in f:
 	else:
 		mat=re.search(r"(?<=menuentry \'Windows).*?/dev/sda1\)",line)
 		if mat:
-			f2.write(line[:mat.start()]+"7"+line[mat.end():])
+			f2.write(line[:mat.start()]+"10"+line[mat.end():])
 			count=1
 			for line1 in f:
 				f2.write(line1)
