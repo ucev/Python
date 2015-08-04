@@ -1,0 +1,17 @@
+### .gitignore file
+
+# /MIME
+/MIME/*.py~
+/MIME/__pycache__/
+/MIME/_*.py
+/MIME/.fileInfo
+/MIME/fileType
+/MIME/mime
+/MIME/MIMETypedb
+
+# /system
+/system/*.py~
+/system/__pycache__/
+
+# /test
+/test/
