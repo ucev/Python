@@ -1,6 +1,7 @@
 {
     "name": "ucev/python",
     "description": "datepicker by ucev",
+    "version": "1.0",
     "license": "Apache-2.0",
     "require": {
     }
